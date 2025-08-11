@@ -1,0 +1,11 @@
+langchain
+langchain-google-genai
+langchain_openai
+streamlit
+psycopg2
+google-cloud-bigquery
+google-generativeai
+python-dotenv
+db-dtypes
+pandas
+plotly
