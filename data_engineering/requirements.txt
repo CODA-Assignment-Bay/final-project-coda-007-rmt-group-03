@@ -1,0 +1,8 @@
+pyspark==3.1.2
+pandas
+numpy
+scikit-learn
+sqlalchemy
+psycopg2-binary
+python-dotenv
+great_expectations
