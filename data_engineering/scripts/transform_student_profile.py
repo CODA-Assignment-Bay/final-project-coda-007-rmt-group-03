@@ -63,7 +63,7 @@ cluster_case_expr = "CASE " + " ".join(
 df_avg = df_avg.withColumn("cluster", expr(cluster_case_expr))
 
 # 5️⃣ Load students.csv (pakai delimiter '|')
-df_students = spark.read.option("sep", "|").csv("data/students.csv", header=True, inferSchema=True)
+df_students = spark.read.option("sep", "|").csv("/opt/airflow/data/students.csv", header=True, inferSchema=True)
 
 # 6️⃣ Parse kolom JSON string jadi array
 array_schema = ArrayType(StringType())

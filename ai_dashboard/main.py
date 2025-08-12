@@ -1,7 +1,7 @@
 import streamlit as st
 import logging
 import pandas as pd
-from agents.query_runner import run_sql_query
+from query_runner import run_sql_query
 from chart_suggester import suggest_chart
 from agent import prompt_to_sql
 from chart_builder import render_chart
