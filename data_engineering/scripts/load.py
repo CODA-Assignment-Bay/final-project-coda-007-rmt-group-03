@@ -51,8 +51,17 @@ def load_parquet_to_postgres(engine, file_path, table_name, if_exists="replace")
 if __name__ == "__main__":
     engine = create_engine_from_env()
 
+    # Load student.csv
+    load_csv_to_postgres(engine, "data/students.csv", "students", sep="|")
+
+    # # Load student_academic_records.csv
+    # load_csv_to_postgres(engine, "data/student_academic_records.csv", "student_academic_record_raw")
+    
+    # Load student_academic_records_clean.parquet
+    load_parquet_to_postgres(engine, "data/processed/student_academic_records_clean.parquet", "student_academic_records")
+    
     # Load student_clusters.parquet
-    load_parquet_to_postgres(engine, "/opt/airflow/data/processed/student_clusters.parquet", "student_clusters_history")
+    load_parquet_to_postgres(engine, "data/processed/student_clusters.parquet", "student_clusters_history")
 
     # Load student_profiles.parquet
-    load_parquet_to_postgres(engine, "/opt/airflow/data/processed/student_profile.parquet", "student_profile_datamart")
+    load_parquet_to_postgres(engine, "data/processed/student_profile.parquet", "student_profile_datamart")

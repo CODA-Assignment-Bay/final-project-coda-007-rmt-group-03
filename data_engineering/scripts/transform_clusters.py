@@ -1,11 +1,11 @@
-# transform_clusters.py
+# transform_clusters.py v4
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import col, greatest, round as spark_round, expr
 from pyspark.sql.types import DoubleType
 from functools import reduce
 
 def transform_data(records_path, output_path, debug=False):
-    spark = SparkSession.builder.appName("Student Thematic Mapping").getOrCreate()
+    spark = SparkSession.builder.appName("Student Clustering").getOrCreate()
 
     # Semua mata pelajaran yang digunakan
     subjects = [
@@ -55,7 +55,6 @@ def transform_data(records_path, output_path, debug=False):
 
     # 1️⃣ Load data
     df = spark.read.parquet(records_path)
-    df = df.dropDuplicates().na.drop(subset=["student_id"])
 
     # 2️⃣ Pastikan semua numeric
     for sub in subjects:
@@ -93,13 +92,13 @@ def transform_data(records_path, output_path, debug=False):
 
     df = df.withColumn("cluster", expr(cluster_mapping_expr))
 
-    # 7️⃣ Debug preview
-    if debug:
-        df.show(10, truncate=False)
+    # # 7️⃣ Debug preview
+    # if debug:
+    #     df.show(10, truncate=False)
 
     # 8️⃣ Simpan hasil
     df.select(
-        "student_id", "record_date", "cluster", "sub_cluster", *avg_cols_list
+        "student_id", "academic_year", "term", "school_id", "level", "class", "cluster", "sub_cluster", "record_date", *avg_cols_list
     ).write.mode("overwrite").parquet(output_path)
 
     print(f"✅ Mapping cluster & sub_cluster selesai. Data disimpan di {output_path}")

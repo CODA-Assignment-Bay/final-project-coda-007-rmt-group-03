@@ -1,4 +1,4 @@
-# clean.py
+#clean.py
 from functools import reduce
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import col, from_json, avg, regexp_replace, trim, when, to_json, struct
@@ -68,9 +68,12 @@ null_counts.show(truncate=False)
 fill_map = {s: float(df.select(avg(col(s))).first()[0] or 0.0) for s in subjects}
 df = df.na.fill(fill_map, subset=subjects)
 
-# Buat ulang academic_scores bersih
+# Buat ulang academic_scores bersih (kalau masih mau simpan internal, tapi nanti dibuang)
 df = df.withColumn("academic_scores_clean", to_json(struct(*[col(s) for s in subjects])))
 
-# Simpan hasil bersih (opsional)
-df.write.mode("overwrite").parquet("/opt/airflow/data/processed/student_academic_records_clean.parquet")
+# Hapus kolom academic_scores dan academic_scores_clean dari output final
+df_final = df.drop("academic_scores", "academic_scores_clean", "scores_struct")
+
+# Simpan hasil bersih
+df_final.write.mode("overwrite").parquet("/opt/airflow/data/processed/student_academic_records_clean.parquet")
 print("✅ Data bersih disimpan ke /opt/airflow/data/processed/student_academic_records_clean.parquet")
