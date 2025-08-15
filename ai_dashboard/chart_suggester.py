@@ -3,11 +3,11 @@ import streamlit as st  # Dibutuhkan untuk debugging di Streamlit
 
 # Mapping kata kunci ke jenis chart
 CHART_KEYWORDS = {
-    "pie": ["persentase", "proporsi", "prosentase", "komposisi"],
+    "pie": ["persentase", "proporsi", "prosentase", "komposisi", "dominasi"],
     "bar": ["perbandingan", "banding", "jumlah", "frekuensi", "total"],
     "line": ["trend", "tren","history", "perkembangan", "perubahan"],
     "scatter": ["hubungan", "korelasi", "relasi", "pengaruh"],
-    "histogram": ["sebaran", "distribusi", "frekuensi", "kemunculan"],
+    "histogram": ["frekuensi", "kemunculan"],
     "box": ["distribusi","outlier", "boxplot", "variabilitas", "jangkauan", "rentang"],
     "heatmap": ["matrix", "korelasi", "heatmap", "hubungan antar variabel"],
     "violin": ["distribusi", "densitas", "violin plot"],

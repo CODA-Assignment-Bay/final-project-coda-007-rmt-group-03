@@ -44,9 +44,11 @@ prompt_template = PromptTemplate.from_template(
 
 Ubah pertanyaan berikut menjadi query SQL Postgres yang kompatibel dengan NeonDB.
 
-Prioritaskan untuk membaca data dari tabel `student_profile_datamart` jika relevan.
-Jika ada pertanyaan terkait time series, gunakan tabel `student_clusters_history sebagai sumber data.
-Jika dari kedua table di atas belum didapatkan data yang relevan, silakan join ke table lain.
+- Jangan gunakan tabel `student_profile_datamart`!
+- Prioritaskan untuk membaca data dari tabel `student_profile_scaled` jika relevan.
+- Gunakan tabel `student_clusters_history hanya jika ada pertanyaan terkait time series.
+- Jika ada pertanyaan terkait 'mapel' / 'mata pelajaran' / 'subject', gunakan table student_academic_records.
+- Jika dari kedua table di atas belum didapatkan data yang relevan, silakan join ke table lain.
 
 Gunakan nama tabel persis seperti yang ada di dokumentasi (tanpa project ID atau dataset ID).
 
